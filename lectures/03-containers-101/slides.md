@@ -7,6 +7,7 @@ info: |
 background: /cover-bg.svg
 transition: fade
 mdc: true
+download: true
 ---
 
 # INF 345 — Fundamentals of DevOps

@@ -1,0 +1,45 @@
+name: Autograding Tests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Cancel superseded runs — a student pushing multiple times in the same
+# session shouldn't burn extra minutes on stale in-flight runs.
+concurrency:
+  group: autograding-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    # Practice checks are git-history/file-content only — never a build —
+    # so this should finish in well under a minute. A generous timeout is
+    # just a safety net against a genuinely hung step.
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full history to count commits
+
+      - name: <check-name>
+        id: check-one
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: <Human readable name>
+          command: echo "replace with the real check"
+          timeout: 1
+          max-score: 100
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          CHECK-ONE_RESULTS: "${{steps.check-one.outputs.result}}"
+        with:
+          runners: check-one

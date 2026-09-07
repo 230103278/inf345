@@ -87,8 +87,9 @@ graded automatically within minutes of submission via GitHub Classroom.
 Only Weeks 1-3 have built lectures so far (`lectures/01-intro/`,
 `lectures/02-git-github/`, `lectures/03-containers-101/`); the rest of the
 plan is a placeholder to be filled in incrementally. Each lesson also gets
-a 1-hour practice session (~2h lecture + 1h practice per week) — practice
-session content isn't built yet.
+a 1-hour practice session (~2h lecture + 1h practice per week) — see
+`practices/` (only Lesson 2's is built so far; see
+`practices/02-git-github/`).
 
 ## Course Learning Outcomes
 
@@ -130,12 +131,10 @@ of Practice on Assessments.*
 | Lab 01 — Containers | Graded entirely from RHA **DO188** lab completion (instructor-assigned via the RHA portal) — no GitHub submission | 1 | 15 |
 | Lab 02 — Automation | Graded entirely from RHA **RH294** lab completion (instructor-assigned via the RHA portal) — no GitHub submission | 1 | 15 |
 | Lab 03 — CI/CD | Autograded GitHub Actions pipeline (no RHA equivalent exists for this topic) | 1 | 15 |
-| Weekly practice sessions | 1-hour in-class practice exercise each lesson | ~14 | 15 |
+| Weekly practice sessions | 1-hour in-class exercise each lesson, autograded via GitHub Classroom | ~14 | 10 |
+| Attendance | Present and participating in lecture + practice | ~15 | 5 |
 | Final Exam — Capstone Project | Mandatory final assessment, delivered in project format (per policy, a project may substitute for a written exam): integration project + demo | 1 | 40 |
 | **Total** | | | **100** |
-
-*Weighting shown is a working proposal (labs 15/15/15, practice 15, capstone
-40) — adjust freely, this isn't locked in yet.*
 
 A university-wide Final Exam is a mandatory assessment component. This
 course exercises the policy allowance to deliver it as a project rather

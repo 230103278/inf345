@@ -7,6 +7,7 @@ info: |
 background: /cover-bg.svg
 transition: fade
 mdc: true
+download: true
 ---
 
 <h1 v-motion :initial="{ x: -60, opacity: 0 }" :enter="{ x: 0, opacity: 1, transition: { duration: 500 } }">
