@@ -1,0 +1,16 @@
+# TODO(student): finish this playbook. See ../README.md for the full
+# definition of done. It must be idempotent — a second run must report
+# zero changed/failed tasks.
+
+- name: Deploy a static site with nginx
+  hosts: web
+  become: true
+
+  tasks:
+    # TODO: install nginx
+
+    # TODO: deploy files/index.html to nginx's web root
+    #       (hint: look at the `copy` module)
+
+    # TODO: ensure the nginx service is started and enabled
+    []

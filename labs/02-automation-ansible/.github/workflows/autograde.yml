@@ -1,0 +1,70 @@
+name: Autograding Tests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: autograding-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ansible-lint, ansible, and molecule (docker driver)
+        run: pip install --disable-pip-version-check ansible-lint molecule molecule-plugins[docker]
+
+      - name: Lint playbook
+        id: lint-playbook
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Lint playbook
+          command: ansible-lint submission/site.yml
+          timeout: 2
+          max-score: 20
+
+      - name: Syntax check
+        id: syntax-check
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Syntax check
+          command: ansible-playbook --syntax-check -i submission/inventory.ini submission/site.yml
+          timeout: 1
+          max-score: 10
+
+      # Molecule's own "test" sequence runs create -> converge -> idempotence
+      # -> verify -> destroy against a disposable Docker target, which is
+      # the FOSS stand-in for the RHA cloud VMs (see the lab README). The
+      # idempotence stage fails automatically if the second converge run
+      # reports any changed/failed tasks.
+      - name: Converge, verify, and prove idempotence (Molecule)
+        id: molecule-test
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: Converge, verify, and prove idempotence
+          command: cd submission && molecule test
+          timeout: 4
+          max-score: 70
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          LINT-PLAYBOOK_RESULTS: "${{steps.lint-playbook.outputs.result}}"
+          SYNTAX-CHECK_RESULTS: "${{steps.syntax-check.outputs.result}}"
+          MOLECULE-TEST_RESULTS: "${{steps.molecule-test.outputs.result}}"
+        with:
+          runners: lint-playbook,syntax-check,molecule-test

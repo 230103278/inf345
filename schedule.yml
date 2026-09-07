@@ -1,0 +1,95 @@
+# Machine-readable weekly schedule, mirrors SYLLABUS.md's "Weekly course
+# plan" table. Sync this to your own calendar instead of relying on
+# remembering the syllabus table (see docs/adhd-friendly-design.md, #8).
+course: INF345 — DevOps I: Containers & Automation
+weeks:
+  - week: 1
+    module: foundations
+    topic: Welcome & the DevOps landscape
+    activity: Lecture & discussion
+    lecture: lectures/01-intro/slides.md
+    lab_due: null
+  - week: 2
+    module: foundations
+    topic: Git/GitHub workflow & Linux CLI refresher
+    activity: Lecture & hands-on exercise
+    lecture: lectures/02-git-github/slides.md
+    lab_due: null
+  - week: 3
+    module: containers
+    topic: "Containers 101: why & how"
+    activity: Lecture & hands-on lab
+    lecture: lectures/03-containers-101/slides.md
+    lab_due: null
+  - week: 4
+    module: containers
+    topic: Images, layers, multi-stage builds
+    activity: Lecture & hands-on lab
+    lecture: null
+    lab_due: null
+  - week: 5
+    module: containers
+    topic: Container networking & volumes
+    activity: Lecture & hands-on lab
+    lecture: null
+    lab_due: null
+  - week: 6
+    module: containers
+    topic: Container security & module wrap-up
+    activity: Lab work
+    lecture: null
+    lab_due: labs/01-containers-podman
+  - week: 7
+    module: automation
+    topic: Configuration management & Ansible basics
+    activity: Lecture & hands-on lab
+    lecture: null
+    lab_due: null
+  - week: 8
+    module: automation
+    topic: Playbooks, roles, variables
+    activity: Lecture & hands-on lab
+    lecture: null
+    lab_due: null
+  - week: 9
+    module: automation
+    topic: Idempotence & testing with Molecule
+    activity: Lecture & hands-on lab
+    lecture: null
+    lab_due: null
+  - week: 10
+    module: automation
+    topic: Ansible in production patterns
+    activity: Lab work
+    lecture: null
+    lab_due: labs/02-automation-ansible
+  - week: 11
+    module: cicd
+    topic: CI/CD concepts & GitHub Actions basics
+    activity: Lecture & hands-on lab
+    lecture: null
+    lab_due: null
+  - week: 12
+    module: cicd
+    topic: Building & testing pipelines
+    activity: Lecture & hands-on lab
+    lecture: null
+    lab_due: null
+  - week: 13
+    module: cicd
+    topic: Security scanning & module wrap-up
+    activity: Lab work
+    lecture: null
+    lab_due: labs/03-cicd-pipeline
+  - week: 14
+    module: capstone
+    topic: Capstone integration work session
+    activity: Project work
+    lecture: null
+    lab_due: null
+  - week: 15
+    module: capstone
+    topic: Capstone demos & course wrap-up
+    activity: Project presentations
+    lecture: null
+    lab_due: labs/04-capstone

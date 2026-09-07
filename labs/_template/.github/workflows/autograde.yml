@@ -1,0 +1,44 @@
+name: Autograding Tests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Cancel superseded runs from rapid iteration — the single biggest
+# minute-saver on the GitHub Free tier's shared org budget.
+concurrency:
+  group: autograding-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      # One classroom-resources/autograding-command-grader step per check.
+      # Keep each `command` fast (lint/syntax-check where possible) and give
+      # every step its own low `timeout` so one hung check can't eat the
+      # whole job's budget.
+      - name: <check-name>
+        id: check-one
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: <Human readable name>
+          command: echo "replace with the real check"
+          timeout: 2
+          max-score: 100
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          CHECK-ONE_RESULTS: "${{steps.check-one.outputs.result}}"
+        with:
+          runners: check-one

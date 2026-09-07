@@ -1,0 +1,21 @@
+# TODO(student): finish this Containerfile.
+#
+# Requirements (see ../README.md for the full definition of done):
+#   1. Minimal base image (prefer a -slim or -alpine Python image)
+#   2. Copy in ./app
+#   3. Install only what's in app/requirements.txt
+#   4. EXPOSE 8080 and run app.py as the entrypoint
+#   5. Run as a non-root user
+
+FROM python:3.12-slim
+
+# TODO: create a non-root user and switch to it before running the app
+
+WORKDIR /app
+COPY app/ .
+
+# TODO: install dependencies from requirements.txt
+
+EXPOSE 8080
+
+# TODO: set the command that starts the app
