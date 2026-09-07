@@ -45,8 +45,9 @@ build a CI/CD pipeline — the core skills used in production software
 engineering today. The course runs partly on Red Hat Academy cloud labs
 (provided free to SDU students through the university's Red Hat Academy
 partnership) and partly on open-source tooling students can keep using
-without any subscription. Every lab is graded automatically within minutes
-of submission via GitHub Classroom.
+without any subscription. Containers and Automation are graded directly
+from Red Hat Academy lab completion; the CI/CD lab and the capstone are
+graded automatically within minutes of submission via GitHub Classroom.
 
 ## Instructor(s)
 
@@ -126,8 +127,8 @@ of Practice on Assessments.*
 
 | Assessment | Description | Quantity | % |
 |---|---|---|---|
-| Lab 01 — Containers | Graded from RHA **DO188** lab completion (instructor-assigned via the RHA portal); GitHub submission kept as an ungraded practice/portfolio artifact | 1 | 15 |
-| Lab 02 — Automation | Graded from RHA **RH294** lab completion (instructor-assigned via the RHA portal); GitHub submission kept as an ungraded practice/portfolio artifact | 1 | 15 |
+| Lab 01 — Containers | Graded entirely from RHA **DO188** lab completion (instructor-assigned via the RHA portal) — no GitHub submission | 1 | 15 |
+| Lab 02 — Automation | Graded entirely from RHA **RH294** lab completion (instructor-assigned via the RHA portal) — no GitHub submission | 1 | 15 |
 | Lab 03 — CI/CD | Autograded GitHub Actions pipeline (no RHA equivalent exists for this topic) | 1 | 15 |
 | Weekly practice sessions | 1-hour in-class practice exercise each lesson | ~14 | 15 |
 | Final Exam — Capstone Project | Mandatory final assessment, delivered in project format (per policy, a project may substitute for a written exam): integration project + demo | 1 | 40 |

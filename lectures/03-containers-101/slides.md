@@ -212,7 +212,7 @@ layer's cache.
   or a mounted volume can turn that into real host access.
 - Fix: create a non-root user and `USER` to it before the final `CMD`, like
   the last step of the Containerfile above.
-- This is exactly what Lab 01's autograder checks for.
+- This is exactly the kind of thing the RHA DO188 lab checks for.
 
 </v-clicks>
 
@@ -244,7 +244,7 @@ transition: slide-left
 
 <div class="mt-6 text-sm opacity-70">
 Everything you write today — the Containerfile itself — is identical
-either way. This is the FOSS-equivalence called out in Lab 01's README.
+either way. DO188 uses Podman; you can practice with Docker too.
 </div>
 
 ---
@@ -253,31 +253,30 @@ either way. This is the FOSS-equivalence called out in Lab 01's README.
 # Live demo — build, run, verify
 
 ```bash{1|2-3|4-5|all}
-cd labs/01-containers-podman
-podman build -t lab01-submission ./submission
+podman build -t demo-app .
 # → builds the image from your Containerfile
-podman run --rm -p 8080:8080 lab01-submission
+podman run --rm -p 8080:8080 demo-app
 curl localhost:8080
-# → should return: "hello from inf345 lab01"
+# → should return whatever your app responds with
 ```
 
 <div v-click class="mt-6 text-sm opacity-70">
-This is literally Lab 01's quickstart — you're not starting from a blank
-page today, you're finishing what's already scaffolded.
+This exact sequence — build, run, verify — is what you'll do inside the
+RHA DO188 lab. Nothing about the commands changes; RHA just gives you the
+environment to run them in.
 </div>
 
 ---
 ---
 
-# Lab 01 — definition of done
+# By the end of this lesson, you should be able to
 
 <v-clicks>
 
-- [ ] `podman build` succeeds with no errors
-- [ ] `podman run` starts the container and it responds on port 8080
-- [ ] `hadolint` reports no errors on your Containerfile
-- [ ] Container does **not** run as root
-- [ ] Autograder passes on your final push
+- [ ] Write a Containerfile from scratch for a simple app
+- [ ] Explain why layer order affects build speed
+- [ ] Build and run a container, and verify it responds correctly
+- [ ] Explain why a container should not run as root
 
 </v-clicks>
 
@@ -287,14 +286,13 @@ layout: default
 
 # Before next lecture
 
-- [ ] Finish Lab 01's Containerfile locally and confirm it builds & runs
-- [ ] Push it to your GitHub Classroom repo (practice/portfolio — ungraded)
-- [ ] Start the real RHA DO188 lab on rha.ole.redhat.com — **this is what
-      gets graded**
+- [ ] Start the RHA DO188 lab on rha.ole.redhat.com — this is what gets
+      graded for this module
+- [ ] See `labs/01-containers-podman/README.md` for details
 
 <div class="mt-8 text-sm opacity-60">
-Lab 01 is due Week 6 — you have time, but starting now means the RHA lab
-content will already feel familiar instead of brand new.
+Lab 01 is due Week 6 — you have time, but starting now means you're not
+rushing it later.
 </div>
 
 ---
