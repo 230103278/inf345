@@ -48,7 +48,7 @@ layout: default
 - [ ] Why version control exists (the problem it solves)
 - [ ] Git fundamentals: commits, diffs, history
 - [ ] Branching & the GitHub workflow
-- [ ] How this course uses GitHub Classroom
+- [ ] How you'll submit work this semester
 - [ ] Where to learn more — curated resources
 - [ ] Today's practice session
 
@@ -213,26 +213,36 @@ just a hosted remote — a shared place everyone pushes to and pulls from.
 </v-clicks>
 
 <div v-click class="mt-6 p-4 rounded bg-blue-500/10 text-sm">
-For this course: you generally won't need branches for labs — you'll work
-directly on <code>main</code> in your Classroom repo. Branches matter more
-once you're collaborating with others, which is why the capstone uses them.
+For this course: you generally won't need extra branches — you'll work on
+<code>main</code> in your fork and open a PR. Branches matter more once
+you're collaborating with others, which is why the capstone uses them.
 </div>
 
 ---
 
-# The GitHub Classroom flow
+# How you'll actually submit work in this course
 
-```bash {1|2|3-4|5|all}
-# 1. Accept the assignment invite in your browser — GitHub creates your repo
-git clone <your-repo-url>
-cd <your-repo>
-# ... do the work ...
-git add . && git commit -m "Complete practice exercise" && git push
+```bash {1|2-3|4-6|7-8|all}
+# 1. Fork the course repo on GitHub (button, top right) — this gives you your own copy
+gh repo fork weeebdev/inf345 --clone
+cd inf345
+# ... do the work in your lab/practice folder ...
+git add .
+git commit -m "Complete practice exercise"
+git push
+gh pr create --repo weeebdev/inf345
 ```
 
 <div v-click class="mt-6 text-sm opacity-70">
-That last line is what triggers the autograder. Every lab and practice
-session in this course follows this exact same loop.
+Opening that PR is what triggers the autograder — GitHub Actions checks
+your PR automatically and posts a score. Your PR isn't meant to be
+merged; it's just how the check runs. Every GitHub-native lab and
+practice session in this course follows this loop.
+</div>
+
+<div v-click class="mt-4 p-3 rounded bg-blue-500/10 text-sm">
+Heads up: forks of a public repo are public too — anyone can see your PR.
+Fine for practice sessions, not something to worry about copying from.
 </div>
 
 ---
@@ -263,10 +273,10 @@ transition: slide-left
 
 <v-clicks>
 
-- [ ] Accept the practice repo invite (link posted separately)
-- [ ] Clone it, make the required commits, push
-- [ ] Autograder checks your commit history and final file state
-- [ ] Submit before the session ends — this is also your attendance signal
+- [ ] Fork <code>weeebdev/inf345</code> (button on GitHub, or <code>gh repo fork</code>)
+- [ ] Make 3 separate commits in <code>practices/02-git-github/</code>
+- [ ] Open a PR back to <code>weeebdev/inf345</code> — that triggers the autograder
+- [ ] PR open before the session ends — this is also your attendance signal
 
 </v-clicks>
 
@@ -284,7 +294,7 @@ layout: default
 <div class="flex items-center gap-3"><logos-docker-icon class="text-2xl" /><span>Lesson 3 is Containers 101 — come with these ready:</span></div>
 
 - [ ] Install Docker Desktop **or** Podman Desktop on your laptop
-- [ ] Make sure today's practice session is pushed and green
+- [ ] Make sure today's practice PR is open and the autograder is green
 - [ ] Skim `labs/01-containers-podman/README.md`
 
 ---

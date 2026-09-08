@@ -1,0 +1,71 @@
+name: "Practice 02: Post grade comment"
+
+# Triggered by workflow_run, not pull_request — this runs in the base
+# repo's context with a normal write-capable token, and never checks out
+# or executes the fork's code. This is the secure way to comment on PRs
+# from forks; see the note in practice-02-autograde.yml for why we don't
+# just use pull_request_target instead.
+on:
+  workflow_run:
+    workflows: ["Practice 02: Autograde"]
+    types: [completed]
+
+permissions:
+  actions: read
+  pull-requests: write
+
+jobs:
+  comment:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: grade-result
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post or update the sticky grade comment on the PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const candidates = (name) => [
+              name,
+              path.join('grade-result', name),
+              path.join('practices/02-git-github', name),
+            ];
+            const read = (name) => {
+              for (const p of candidates(name)) {
+                if (fs.existsSync(p)) return fs.readFileSync(p, 'utf8');
+              }
+              throw new Error(`missing ${name}; tried ${candidates(name).join(', ')}`);
+            };
+            const prNumber = parseInt(read('pr-number.txt').trim(), 10);
+            const body = read('grade-comment.md');
+            const marker = '### 🤖 Practice 02 autograder';
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.startsWith(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }

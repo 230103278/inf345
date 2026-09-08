@@ -258,7 +258,6 @@ assessment rubric pointers, and academic integrity policy.
 <div class="mt-4 text-sm opacity-70">Full detail, rubrics, and policies: <code>SYLLABUS.md</code> in the repo.</div>
 
 ---
----
 
 # Grading breakdown
 
@@ -267,7 +266,8 @@ pie showData
   "Lab 01 — Containers (RHA)" : 15
   "Lab 02 — Automation (RHA)" : 15
   "Lab 03 — CI/CD (autograded)" : 15
-  "Weekly practice sessions" : 15
+  "Weekly practice sessions" : 10
+  "Attendance" : 5
   "Final Exam — Capstone" : 40
 ```
 

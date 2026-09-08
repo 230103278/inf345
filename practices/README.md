@@ -7,7 +7,7 @@ attendance line). Practice sessions are graded differently from labs:
 | | Labs | Practice sessions |
 |---|---|---|
 | When | Take-home, days to finish | In-class, ~1 hour, synchronous |
-| Where | RHA cloud labs (01/02) or GitHub (03/Capstone) | Always GitHub Classroom |
+| Where | RHA cloud labs (01/02) or GitHub (03/Capstone) | GitHub Classroom *(stopgap until the org is approved: fork + PR into this repo)* |
 | Grading | RHA completion or a full build/run autograder | A fast, lightweight autograder — checks git history and file content, not builds |
 | Purpose | Depth on one module's tool | Reinforce that lesson's specific skill, immediately |
 

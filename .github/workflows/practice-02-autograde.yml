@@ -1,0 +1,85 @@
+name: "Practice 02: Autograde"
+
+# Runs with a READ-ONLY token when triggered by a fork's PR — this is a
+# hard GitHub security policy for `pull_request`, not something we can
+# opt out of. That's fine: this workflow only computes the score and
+# saves it as an artifact. A separate workflow (practice-02-comment.yml),
+# triggered by `workflow_run`, does the actual PR commenting with write
+# access, without ever running the fork's code. Never use
+# `pull_request_target` to skip this split — that pattern runs untrusted
+# fork code with write access/secrets and is a well-known vulnerability.
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "practices/02-git-github/**"
+
+concurrency:
+  group: practice-02-autograde-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Run checks, tally score, write comment body
+        working-directory: practices/02-git-github
+        env:
+          PR_COMMITS: ${{ github.event.pull_request.commits }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          total=0
+          commits="${PR_COMMITS:-0}"
+
+          if [ "$commits" -ge 3 ]; then
+            commit_row="| At least 3 commits in this PR | 40/40 | ✅ ($commits commits) |"
+            total=$((total + 40))
+          else
+            commit_row="| At least 3 commits in this PR | 0/40 | ❌ (only $commits commits) |"
+          fi
+
+          if bash scripts/check_notes.sh > /tmp/notes.log 2>&1; then
+            notes_row="| NOTES.md placeholders replaced | 30/30 | ✅ |"
+            total=$((total + 30))
+          else
+            notes_row="| NOTES.md placeholders replaced | 0/30 | ❌ |"
+          fi
+
+          if bash scripts/check_contributors.sh > /tmp/contrib.log 2>&1; then
+            contrib_row="| CONTRIBUTORS.md exists with your name | 30/30 | ✅ |"
+            total=$((total + 30))
+          else
+            contrib_row="| CONTRIBUTORS.md exists with your name | 0/30 | ❌ |"
+          fi
+
+          {
+            echo "### 🤖 Practice 02 autograder: $total / 100"
+            echo
+            echo "| Check | Points | Result |"
+            echo "|---|---|---|"
+            echo "$commit_row"
+            echo "$notes_row"
+            echo "$contrib_row"
+            echo
+            echo "<sub>Commit \`$PR_SHA\`</sub>"
+          } > "$GITHUB_WORKSPACE/grade-comment.md"
+
+          echo "${{ github.event.pull_request.number }}" > "$GITHUB_WORKSPACE/pr-number.txt"
+          cat "$GITHUB_WORKSPACE/grade-comment.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grade-result
+          path: |
+            grade-comment.md
+            pr-number.txt
+          retention-days: 5
